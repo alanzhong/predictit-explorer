@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es2015",
+    "module": "commonjs",
+    "strict": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "outDir": "./dist",
+    "moduleResolution": "node",
+    "jsx": "react",
+    "lib": ["es2015", "es2015.iterable"]
+  },
+  "include": ["src"]
+}

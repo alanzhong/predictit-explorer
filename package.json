@@ -1,0 +1,75 @@
+{
+  "scripts": {
+    "start": "export NODE_ENV='development' && npm run build:client -- -- -w",
+    "prettier": "prettier --single-quote --write './src/**/*.ts'",
+    "lint": "tslint --fix -p ./",
+    "tidy": "npm run lint && npm run prettier",
+    "generate-types":
+      "ts-node ./src/scripts/generate-schema.ts && npm run prettier",
+    "generate-client-data": "ts-node ./src/scripts/generate-client-data.ts",
+    "generate-static-assets":
+      "mkdir -p ./public && ts-node ./src/scripts/generate-static-assets.ts",
+    "clean:lambda": "rm -rf ./dist",
+    "clean:client": "rm -rf ./public",
+    "build:lambda": "npm run clean:lambda && npm run rollup:lambda",
+    "build:client":
+      "npm run clean:client && npm run generate-static-assets && npm run rollup:client",
+    "package:lambda":
+      "npm run build:lambda && cp ./package.json ./dist && cp ./yarn.lock ./dist && cd ./dist/ && yarn --production && mkdir -p ../build && zip -r ../build/package-$FN-$(date +\"%m-%d-%Y-%H:%M:%S\").zip ./",
+    "package:client":
+      "export NODE_ENV='production' && npm run build:client && rm ./public/data.json",
+    "rollup:lambda": "rollup -c ./src/lambda/rollup.config.ts",
+    "rollup:client": "rollup -c ./src/client/rollup.config.ts",
+    "rollup:d3": "rollup -c ./src/client/d3/rollup.config.ts",
+    "deploy:client":
+      "npm run package:client && cp -r ./assets/* ./public && aws s3 sync ./public/ s3://predictit.bsou.io --cache-control max-age=300",
+    "viz:client":
+      "export VIZ=1 && npm run rollup:client && open ./dist/stats.html"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "0.0.33",
+    "@types/d3-array": "1.2.1",
+    "@types/d3-scale": "2.0.0",
+    "@types/d3-shape": "1.2.2",
+    "@types/got": "7.1.8",
+    "@types/pg": "7.4.5",
+    "@types/react": "16.1.0",
+    "@types/react-dom": "16.0.4",
+    "@types/react-redux": "5.0.15",
+    "d3-array": "1.2.1",
+    "d3-scale": "2.0.0",
+    "d3-shape": "1.2.0",
+    "fuse.js": "bsouthga/Fuse",
+    "prettier": "1.11.1",
+    "promise-polyfill": "7.1.1",
+    "react": "16.3.0",
+    "react-dom": "16.3.0",
+    "react-redux": "5.0.7",
+    "redux": "3.7.2",
+    "redux-little-router": "15.1.0",
+    "redux-thunk": "2.2.0",
+    "rollup": "0.57.1",
+    "rollup-plugin-commonjs": "9.1.0",
+    "rollup-plugin-livereload": "0.6.0",
+    "rollup-plugin-node-resolve": "3.3.0",
+    "rollup-plugin-replace": "2.0.0",
+    "rollup-plugin-serve": "0.4.2",
+    "rollup-plugin-typescript2": "0.12.0",
+    "rollup-plugin-uglify": "3.0.0",
+    "rollup-plugin-virtual": "1.0.1",
+    "rollup-plugin-visualizer": "0.5.0",
+    "schemats": "3.0.3",
+    "ts-node": "5.0.1",
+    "tslint": "5.9.1",
+    "tslint-config-prettier": "1.10.0",
+    "typescript": "2.8.1",
+    "typestyle": "1.7.2",
+    "whatwg-fetch": "2.0.3"
+  },
+  "dependencies": {
+    "ajv": "6.3.0",
+    "aws-sdk": "2.211.0",
+    "got": "8.3.0",
+    "pg": "7.4.1"
+  }
+}
