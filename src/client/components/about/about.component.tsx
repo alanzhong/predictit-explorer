@@ -16,7 +16,7 @@ export class About extends React.PureComponent<AboutProps> {
     const { minDate, exampleMarket } = this.props;
     return (
       <div className={aboutClass}>
-        <h2>What is PredictIt</h2>
+        <h2>What is PredictIt?</h2>
         <p>
           <a href="https://www.predictit.org">PredictIt</a> is a "Prediction
           Market for Politics". "Markets" are created for events that may or may
@@ -39,7 +39,7 @@ export class About extends React.PureComponent<AboutProps> {
         <h2>How do the charts in this tool work?</h2>
         <p>
           Below, a Predictit prediction market is plotted, representing Paul
-          Ryan's chances of being re-elected in 2018
+          Ryan's chances of being re-elected in 2018:
         </p>
         {exampleMarket ? (
           <MarketListItem market={exampleMarket} />
@@ -65,7 +65,8 @@ export class About extends React.PureComponent<AboutProps> {
           probabilities at specific points in time.
         </p>
         <div className={appFooterClass}>
-          <a href="https://bsou.io">Ben Southgate</a> | 2018
+          <a href="https://bsou.io">Ben Southgate</a> | 2018 |{' '}
+          <a href="https://github.com/bsouthga/predictit-explorer">github</a>
         </div>
       </div>
     );
