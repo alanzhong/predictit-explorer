@@ -18,31 +18,31 @@ export interface TooltipState {
 }
 
 export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
-  public state: TooltipState = {};
+  state: TooltipState = {};
 
-  public element?: Element;
-  public stringEl: Element | null = null;
-  public tooltipEl: HTMLDivElement | null = null;
+  element?: Element;
+  stringEl: Element | null = null;
+  tooltipEl: HTMLDivElement | null = null;
 
-  public getStringRef = (el: Element | null) => {
+  getStringRef = (el: Element | null) => {
     this.stringEl = el;
   };
 
-  public getTooltipRef = (el: HTMLDivElement | null) => {
+  getTooltipRef = (el: HTMLDivElement | null) => {
     this.tooltipEl = el;
   };
 
-  public onChildMouseOver = () => {
+  onChildMouseOver = () => {
     this.setState({ show: true, position: this.getPosition() });
   };
 
-  public onChildMouseOut = () => {
+  onChildMouseOut = () => {
     if (this.state.show) {
       this.setState({ show: false });
     }
   };
 
-  public getElement() {
+  getElement() {
     let element: Element | undefined;
     const ref = this.refs[0];
 
@@ -57,7 +57,7 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
     return element;
   }
 
-  public getPosition() {
+  getPosition() {
     if (this.element && this.tooltipEl) {
       const bbox = this.element.getBoundingClientRect();
       const tooltipBBox = this.tooltipEl.getBoundingClientRect();
@@ -69,7 +69,7 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
     }
   }
 
-  public componentDidMount() {
+  componentDidMount() {
     const element = (this.element = this.getElement());
     if (element) {
       document.addEventListener('scroll', this.onChildMouseOut);
@@ -78,7 +78,7 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
     }
   }
 
-  public componentDidUpdate() {
+  componentDidUpdate() {
     this.element = this.getElement();
     const position = this.getPosition();
     const oldPosition = this.state.position;
@@ -88,7 +88,7 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
     }
   }
 
-  public componentWillUnmount() {
+  componentWillUnmount() {
     if (this.element) {
       document.removeEventListener('scroll', this.onChildMouseOut);
       this.element.removeEventListener('mouseover', this.onChildMouseOver);
@@ -96,7 +96,7 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
     }
   }
 
-  public render() {
+  render() {
     const { children, text } = this.props;
     const { show, position } = this.state;
 

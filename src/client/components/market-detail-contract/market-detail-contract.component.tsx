@@ -15,7 +15,7 @@ export interface MarketDetailContractProps {
 export class MarketDetailContract extends React.PureComponent<
   MarketDetailContractProps
 > {
-  public render() {
+  render() {
     const { contract, multiContract } = this.props;
 
     return (

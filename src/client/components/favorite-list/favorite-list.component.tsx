@@ -9,7 +9,7 @@ export interface FavoriteListProps {
 }
 
 export class FavoriteList extends React.PureComponent<FavoriteListProps> {
-  public render() {
+  render() {
     const { markets } = this.props;
     return (
       <div className={favoriteListClass}>

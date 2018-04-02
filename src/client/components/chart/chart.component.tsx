@@ -20,7 +20,7 @@ interface ChartState {
 }
 
 export class Chart extends React.PureComponent<ChartProps, ChartState> {
-  public static getDerivedStateFromProps(newProps: ChartProps, oldState: ChartState) {
+  static getDerivedStateFromProps(newProps: ChartProps, oldState: ChartState) {
     return {
       extent: getDateExtent(oldState.data, newProps.dateExtent)
     };
@@ -36,7 +36,7 @@ export class Chart extends React.PureComponent<ChartProps, ChartState> {
     this.state = { data, extent };
   }
 
-  public renderChart = (dimensions: Dimensions) => {
+  renderChart = (dimensions: Dimensions) => {
     const { data, extent } = this.state;
 
     return (
@@ -49,7 +49,7 @@ export class Chart extends React.PureComponent<ChartProps, ChartState> {
     );
   };
 
-  public render() {
+  render() {
     const { className } = this.props;
     return (
       <Responsive className={classes(chartClass, className)}>
@@ -84,8 +84,12 @@ const getDateExtentForObservations = memoize((data: ChartObservation[]) => {
   let max = -Infinity;
   for (const { date } of data) {
     const time = date.getTime();
-    if (min > time) { min = time; }
-    if (max < time) { max = time; }
+    if (min > time) {
+      min = time;
+    }
+    if (max < time) {
+      max = time;
+    }
   }
 
   return [new Date(min), new Date(max)] as [Date, Date];

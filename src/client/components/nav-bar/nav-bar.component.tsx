@@ -14,7 +14,7 @@ interface NavBarProps {
 }
 
 export class NavBar extends React.PureComponent<NavBarProps> {
-  public render() {
+  render() {
     const { updatedAt, favoritesCount } = this.props;
     return (
       <div className={navBarClass}>

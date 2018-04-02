@@ -11,9 +11,11 @@ export interface MarketDetailProps {
 }
 
 export class MarketDetail extends React.PureComponent<MarketDetailProps> {
-  public render() {
+  render() {
     const { market } = this.props;
-    if (!market) { return <div>No market found...</div>; }
+    if (!market) {
+      return <div>No market found...</div>;
+    }
 
     const multiContract = market.contracts.length > 1;
 

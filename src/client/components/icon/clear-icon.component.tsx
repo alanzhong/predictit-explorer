@@ -2,7 +2,7 @@ import * as React from 'react';
 import { IconMonstrProps } from './icon.types';
 
 export class ClearIcon extends React.PureComponent<IconMonstrProps> {
-  public render() {
+  render() {
     const { className, style, onClick } = this.props;
 
     return (

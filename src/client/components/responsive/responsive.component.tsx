@@ -19,15 +19,15 @@ export class Responsive extends React.Component<
   ResponsiveProps,
   ResponsiveState
 > {
-  public state: ResponsiveState = {};
+  state: ResponsiveState = {};
 
-  public resize = debounce(() => this.getDimensions(), 100);
+  resize = debounce(() => this.getDimensions(), 100);
 
-  public container: HTMLDivElement | null = null;
+  container: HTMLDivElement | null = null;
 
-  public getContainerRef = (el: HTMLDivElement | null) => (this.container = el);
+  getContainerRef = (el: HTMLDivElement | null) => (this.container = el);
 
-  public getDimensions() {
+  getDimensions() {
     const { dimensions } = this.state;
 
     if (this.container) {
@@ -42,16 +42,16 @@ export class Responsive extends React.Component<
     }
   }
 
-  public componentDidMount() {
+  componentDidMount() {
     this.getDimensions();
     window.addEventListener('resize', this.resize);
   }
 
-  public componentWillUnmount() {
+  componentWillUnmount() {
     window.removeEventListener('resize', this.resize);
   }
 
-  public render() {
+  render() {
     const { children, className } = this.props;
     const { dimensions } = this.state;
     return (

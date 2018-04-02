@@ -35,19 +35,19 @@ export class MarketListItem extends React.PureComponent<
   MarketListItemProps,
   MarketListItemState
 > {
-  public state: MarketListItemState = {};
+  state: MarketListItemState = {};
 
-  public toggleExpanded = (event: React.SyntheticEvent<HTMLButtonElement>) => {
+  toggleExpanded = (event: React.SyntheticEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     this.setState({ expanded: !this.state.expanded });
   };
 
-  public onClick = () => {
+  onClick = () => {
     const { market, goToMarket } = this.props;
     goToMarket(market);
   };
 
-  public render() {
+  render() {
     const { market, dateExtent } = this.props;
     const { expanded } = this.state;
     const { contracts, is_open } = market;

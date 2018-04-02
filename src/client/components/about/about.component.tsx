@@ -12,7 +12,7 @@ export interface AboutProps {
 }
 
 export class About extends React.PureComponent<AboutProps> {
-  public render() {
+  render() {
     const { minDate, exampleMarket } = this.props;
     return (
       <div className={aboutClass}>

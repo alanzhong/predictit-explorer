@@ -21,10 +21,17 @@ interface AxisProps<Range, Output, Input> {
   position?: 'top' | 'bottom' | 'left' | 'right';
 }
 
+/**
+ *
+ * d3 based axis using react for dom
+ *
+ * Ideas borrowed from: https://github.com/shauns/react-d3-axis/blob/d6d38f07cdbd7bf3bf0ef22e5cfa024860450ad4/src/Axis.js#L39
+ *
+ */
 export class Axis<Range, Output, Input> extends React.Component<
   AxisProps<Range, Output, Input>
 > {
-  public render() {
+  render() {
     const { scale, className, position = 'bottom', transform } = this.props;
 
     const values = scale.ticks(getXAxisTicks());

@@ -14,14 +14,14 @@ export interface FavoriteProps {
 }
 
 export class Favorite extends React.PureComponent<FavoriteProps> {
-  public toggleFavorite = (event: React.MouseEvent<SVGElement>) => {
+  toggleFavorite = (event: React.MouseEvent<SVGElement>) => {
     event.stopPropagation();
     const { id, isFavorite, addFavorite, removeFavorite } = this.props;
     const method = isFavorite ? removeFavorite : addFavorite;
     method(id);
   };
 
-  public render() {
+  render() {
     const { isFavorite, id, className } = this.props;
 
     return (

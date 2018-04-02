@@ -19,7 +19,7 @@ interface AppProps {
 }
 
 export class App extends React.PureComponent<AppProps> {
-  public renderContent() {
+  renderContent() {
     const { loading, location } = this.props;
 
     if (loading) {
@@ -50,7 +50,7 @@ export class App extends React.PureComponent<AppProps> {
     }
   }
 
-  public render() {
+  render() {
     const { loading, updatedAt, favoritesCount } = this.props;
 
     return (

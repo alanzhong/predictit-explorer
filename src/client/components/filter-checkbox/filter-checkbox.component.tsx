@@ -9,12 +9,12 @@ interface FilterCheckboxProps {
 }
 
 export class FilterCheckbox extends React.PureComponent<FilterCheckboxProps> {
-  public onChange = () => {
+  onChange = () => {
     const { setFilter, hasFilter, mask } = this.props;
     setFilter(mask, !hasFilter(mask));
   };
 
-  public render() {
+  render() {
     const { hasFilter, mask, children } = this.props;
     return (
       <div className={filterOptionClass}>

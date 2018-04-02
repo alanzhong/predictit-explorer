@@ -40,7 +40,7 @@ export class ChartSVG extends React.PureComponent<
   ChartSVGProps,
   ChartSVGState
 > {
-  public static getDerivedStateFromProps(
+  static getDerivedStateFromProps(
     nextProps: ChartSVGProps,
     prevState: ChartSVGState
   ) {
@@ -98,27 +98,27 @@ export class ChartSVG extends React.PureComponent<
     };
   }
 
-  public y50 = () => {
+  y50 = () => {
     const { y } = this.state;
     return y(50);
   };
 
-  public horizontalLine = (v = 50) => {
+  horizontalLine = (v = 50) => {
     const { extent } = this.props;
     const { line } = this.state;
 
     return line(extent.map(dateToPoint(v)));
   };
 
-  public onMouseOver = () => {
+  onMouseOver = () => {
     this.setState({ showPoint: false });
   };
 
-  public onMouseOut = () => {
+  onMouseOut = () => {
     this.setState({ showPoint: true });
   };
 
-  public getNearestPoint = (xPosition: number) => {
+  getNearestPoint = (xPosition: number) => {
     const { x, y } = this.state;
     const { data } = this.props;
     const xVal = x.invert(xPosition);
@@ -136,7 +136,7 @@ export class ChartSVG extends React.PureComponent<
     };
   };
 
-  public renderLastPoint() {
+  renderLastPoint() {
     const { showPoint, x, y } = this.state;
     const { data } = this.props;
     const lastPoint = last(data);
@@ -159,7 +159,7 @@ export class ChartSVG extends React.PureComponent<
     );
   }
 
-  public render() {
+  render() {
     const { id, area, line, height, width, x } = this.state;
     const { data, containerWidth, containerHeight } = this.props;
     const margin = defaultMargin;

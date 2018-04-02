@@ -2,7 +2,7 @@ import * as React from 'react';
 import { IconMonstrProps } from './icon.types';
 
 export class ActiveIcon extends React.PureComponent<IconMonstrProps> {
-  public render() {
+  render() {
     const { className, style } = this.props;
     return (
       <svg

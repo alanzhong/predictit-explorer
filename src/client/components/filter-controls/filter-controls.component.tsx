@@ -30,23 +30,23 @@ export interface FilterControlsProps {
 }
 
 export class FilterControls extends React.PureComponent<FilterControlsProps> {
-  public onInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+  onInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const query = event.currentTarget.value;
     const { onSearch = noop } = this.props;
     onSearch(query);
   };
 
-  public clearSearch = () => {
+  clearSearch = () => {
     const { onSearch = noop } = this.props;
     onSearch('');
   };
 
-  public onToggleFilters = () => {
+  onToggleFilters = () => {
     const { showFilters, onToggleFilters = noop } = this.props;
     onToggleFilters(!showFilters);
   };
 
-  public render() {
+  render() {
     const { showFilters = false, query = '', filterCount } = this.props;
 
     return (

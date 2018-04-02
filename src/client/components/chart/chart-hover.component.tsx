@@ -31,24 +31,24 @@ export class ChartHover extends React.PureComponent<
   ChartHoverProps,
   ChartHoverState
 > {
-  public static HIDE = -999;
+  static HIDE = -999;
 
-  public state: ChartHoverState = {
+  state: ChartHoverState = {
     hoverX: ChartHover.HIDE,
     hoverY: ChartHover.HIDE,
     text: ''
   };
 
-  public hoverRect: SVGRectElement | null = null;
+  hoverRect: SVGRectElement | null = null;
 
-  public getRectRef = (rect: SVGRectElement | null) => (this.hoverRect = rect);
+  getRectRef = (rect: SVGRectElement | null) => (this.hoverRect = rect);
 
-  public onRectMouseOver = () => {
+  onRectMouseOver = () => {
     const { onMouseOver } = this.props;
     onMouseOver();
   };
 
-  public onRectMouseMove = (event: React.MouseEvent<SVGRectElement>) => {
+  onRectMouseMove = (event: React.MouseEvent<SVGRectElement>) => {
     const { getPointInformation } = this.props;
     const pos = this.getMousePosition(event);
     const point = getPointInformation(pos.x);
@@ -69,7 +69,7 @@ export class ChartHover extends React.PureComponent<
     }
   };
 
-  public onRectMouseOut = (event: React.MouseEvent<SVGRectElement>) => {
+  onRectMouseOut = (event: React.MouseEvent<SVGRectElement>) => {
     const { onMouseOut } = this.props;
 
     this.setState(
@@ -80,7 +80,7 @@ export class ChartHover extends React.PureComponent<
     );
   };
 
-  public getMousePosition(event: React.MouseEvent<SVGRectElement>) {
+  getMousePosition(event: React.MouseEvent<SVGRectElement>) {
     if (this.hoverRect) {
       const bbox = this.hoverRect.getBoundingClientRect();
       const x = event.clientX - bbox.left;
@@ -90,7 +90,7 @@ export class ChartHover extends React.PureComponent<
     return { x: 0, y: 0 };
   }
 
-  public render() {
+  render() {
     const { hoverX, hoverY, text } = this.state;
     const { height, width } = this.props;
     const halfWay = hoverX > width / 2;

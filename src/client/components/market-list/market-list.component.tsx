@@ -20,7 +20,7 @@ export interface MarketListProps {
 }
 
 export class MarketList extends React.PureComponent<MarketListProps> {
-  public handleInfiniteScroll = () => {
+  handleInfiniteScroll = () => {
     const body = document.body;
     if (body.scrollHeight - (body.scrollTop + 100) <= body.clientHeight) {
       const { setPage, page, markets } = this.props;
@@ -32,15 +32,15 @@ export class MarketList extends React.PureComponent<MarketListProps> {
     }
   };
 
-  public componentDidMount() {
+  componentDidMount() {
     document.addEventListener('scroll', this.handleInfiniteScroll);
   }
 
-  public componentWillUnmount() {
+  componentWillUnmount() {
     document.removeEventListener('scroll', this.handleInfiniteScroll);
   }
 
-  public render() {
+  render() {
     const { markets, filter, page = 1 } = this.props;
     const total = markets.length;
     const maxPage = Math.floor(total / ITEMS_PER_PAGE) + 1;
@@ -74,8 +74,12 @@ function getDateExtent(markets: MarketWithContracts[]): [number, number] {
   let maxDate = -Infinity;
   for (const market of markets) {
     const [marketMin, marketMax] = getDateExtentForMarket(market);
-    if (marketMin < minDate) { minDate = marketMin; }
-    if (marketMax > maxDate) { maxDate = marketMax; }
+    if (marketMin < minDate) {
+      minDate = marketMin;
+    }
+    if (marketMax > maxDate) {
+      maxDate = marketMax;
+    }
   }
 
   return [minDate, maxDate];
@@ -87,8 +91,12 @@ const getDateExtentForMarket = memoize((market: MarketWithContracts) => {
 
   for (const contract of market.contracts) {
     const { start, maxDate: contractMaxDate } = contract.series;
-    if (start < minDate) { minDate = start; }
-    if (contractMaxDate > maxDate) { maxDate = contractMaxDate; }
+    if (start < minDate) {
+      minDate = start;
+    }
+    if (contractMaxDate > maxDate) {
+      maxDate = contractMaxDate;
+    }
   }
 
   const extent: [number, number] = [minDate, maxDate];

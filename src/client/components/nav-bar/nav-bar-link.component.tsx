@@ -10,7 +10,7 @@ export interface NavBarLinkProps {
 }
 
 export class NavBarLink extends React.PureComponent<NavBarLinkProps> {
-  public render() {
+  render() {
     const { path, children, active } = this.props;
     return (
       <Link
