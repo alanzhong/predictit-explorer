@@ -11,7 +11,17 @@ const strokeWidth = 1;
 
 function getXAxisTicks() {
   const docWidth = window.innerWidth;
-  return docWidth <= MOBILE_WIDTH ? 3 : 7;
+  return docWidth <= MOBILE_WIDTH ? 3 : 6;
+}
+
+function formatTick<Input>(
+  value: Input,
+  defaultFormat: (value: Input) => string
+) {
+  if (value instanceof Date) {
+    return value.toLocaleDateString();
+  }
+  return defaultFormat(value);
 }
 
 interface AxisProps<Range, Output, Input> {
@@ -35,8 +45,8 @@ export class Axis<Range, Output, Input> extends React.Component<
     const { scale, className, position = 'bottom', transform } = this.props;
 
     const values = scale.ticks(getXAxisTicks());
-    const format = scale.tickFormat();
     const range = scale.range();
+    const defaultFormat = scale.tickFormat();
 
     const isRight = position === 'right';
     const isLeft = position === 'left';
@@ -100,7 +110,7 @@ export class Axis<Range, Output, Input> extends React.Component<
                 className={tickTextClass}
                 {...textProps}
               >
-                {format(tickValue)}
+                {formatTick(tickValue, defaultFormat)}
               </text>
             </g>
           );
