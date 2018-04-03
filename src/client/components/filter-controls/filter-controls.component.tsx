@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { classes } from 'typestyle';
 import { MarketFilters } from '../../store';
-import { noop } from '../../utils';
+import { debounce, noop } from '../../utils';
 import { FilterCheckbox } from '../filter-checkbox';
 import { ClearIcon, FilterIcon } from '../icon';
 import { Tooltip } from '../tooltip';
@@ -29,11 +29,24 @@ export interface FilterControlsProps {
   onToggleFilters(show: boolean): void;
 }
 
+export interface FilterControlsState {
+  query: string;
+}
+
 export class FilterControls extends React.PureComponent<FilterControlsProps> {
-  onInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const query = event.currentTarget.value;
+  state: FilterControlsState = {
+    query: this.props.query
+  };
+
+  updateSearch = debounce(() => {
+    const { query } = this.state;
     const { onSearch = noop } = this.props;
     onSearch(query);
+  }, 200);
+
+  onInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const query = event.currentTarget.value;
+    this.setState({ query }, this.updateSearch);
   };
 
   clearSearch = () => {
@@ -47,7 +60,8 @@ export class FilterControls extends React.PureComponent<FilterControlsProps> {
   };
 
   render() {
-    const { showFilters = false, query = '', filterCount } = this.props;
+    const { showFilters = false, filterCount } = this.props;
+    const { query } = this.state;
 
     return (
       <div className={filterControlsClass}>
