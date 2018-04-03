@@ -1,7 +1,7 @@
 import * as d3 from 'd3-virtual';
 import * as React from 'react';
 import { classes } from 'typestyle';
-import { last, shallowEqual, uid } from '../../utils';
+import { last, shallowEqual, uid, utcFormat } from '../../utils';
 import { MOBILE_WIDTH } from '../constants';
 import { Axis } from './axis.component';
 import { ChartHover } from './chart-hover.component';
@@ -67,7 +67,7 @@ export class ChartSVG extends React.PureComponent<
     const height = props.containerHeight - margin.top - margin.bottom;
 
     const x = d3
-      .scaleTime()
+      .scaleUtc()
       .domain(props.extent)
       .range([0, width]);
 
@@ -132,7 +132,7 @@ export class ChartSVG extends React.PureComponent<
     return {
       x: x(d.date),
       y: y(d.value),
-      text: `${d.value}%, ${d.date.toLocaleDateString()}`
+      text: `${d.value}%, ${utcFormat(d.date)}`
     };
   };
 

@@ -1,4 +1,3 @@
-import { area, bisector, scaleLinear, scaleTime } from 'd3-virtual';
 import * as React from 'react';
 import { last, shallowEqual, uid } from '../../utils';
 import { MOBILE_WIDTH } from '../constants';

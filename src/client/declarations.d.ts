@@ -11,7 +11,7 @@ declare module 'rollup-plugin-visualizer';
 declare module 'd3-virtual' {
   export { area, Area } from 'd3-shape';
   export { bisector, histogram, HistogramGenerator, Bin } from 'd3-array';
-  export { scaleLinear, scaleTime, ScaleLinear, ScaleTime } from 'd3-scale';
+  export { scaleLinear, scaleUtc, ScaleLinear, ScaleTime } from 'd3-scale';
 }
 
 declare module 'fuse-virtual' {

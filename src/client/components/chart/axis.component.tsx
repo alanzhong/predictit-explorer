@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { classes } from 'typestyle';
+import { utcFormat } from '../../utils';
 import { MOBILE_WIDTH } from '../constants';
 import { axisContainerClass, tickClass, tickTextClass } from './axis.styles';
 import { Scale } from './types';
@@ -11,7 +12,7 @@ const strokeWidth = 1;
 
 function getXAxisTicks() {
   const docWidth = window.innerWidth;
-  return docWidth <= MOBILE_WIDTH ? 3 : 6;
+  return docWidth <= MOBILE_WIDTH ? 3 : 5;
 }
 
 function formatTick<Input>(
@@ -19,7 +20,7 @@ function formatTick<Input>(
   defaultFormat: (value: Input) => string
 ) {
   if (value instanceof Date) {
-    return value.toLocaleDateString();
+    return utcFormat(value);
   }
   return defaultFormat(value);
 }

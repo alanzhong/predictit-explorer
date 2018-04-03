@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { classes, style } from 'typestyle';
 import { DailySeriesResult } from '../../../types/client';
-import { memoize } from '../../utils';
+import { memoize, toUTC } from '../../utils';
 import { MOBILE_WIDTH } from '../constants';
 import { Dimensions, Responsive } from '../responsive';
 import { ChartSVG } from './chart-svg.component';
@@ -71,7 +71,7 @@ const prepData = memoize((data: DailySeriesResult) => {
     lag += offset;
 
     out.push({
-      date: new Date(start + lag),
+      date: toUTC(start + lag),
       value: parseFloat(value)
     });
   }
@@ -92,7 +92,7 @@ const getDateExtentForObservations = memoize((data: ChartObservation[]) => {
     }
   }
 
-  return [new Date(min), new Date(max)] as [Date, Date];
+  return [toUTC(min), toUTC(max)] as [Date, Date];
 });
 
 function getDateExtent(
@@ -101,7 +101,7 @@ function getDateExtent(
 ): [Date, Date] {
   if (dateExtent) {
     const [min, max] = dateExtent;
-    return [new Date(min), new Date(max)];
+    return [toUTC(min), toUTC(max)];
   }
   return getDateExtentForObservations(data);
 }

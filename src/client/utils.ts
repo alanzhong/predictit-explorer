@@ -103,3 +103,12 @@ export function stringToUrl(str: string) {
     .trim()
     .replace(whitespaceRegex, '-');
 }
+
+export function utcFormat(d: Date | number) {
+  const date = typeof d === 'number' ? new Date(d) : d;
+  return date.toLocaleDateString(undefined, { timeZone: 'UTC' });
+}
+
+export function toUTC(d: Date | number) {
+  return new Date((typeof d === 'number' ? new Date(d) : d).toUTCString());
+}
