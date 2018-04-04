@@ -22,8 +22,7 @@ export const marketListItemHeaderClass = style({
   flexDirection: 'row',
   alignItems: 'center',
   padding: 5,
-  paddingBottom: 0,
-  height: 25
+  paddingBottom: 0
 });
 
 export const sparkLineContainer = style({
