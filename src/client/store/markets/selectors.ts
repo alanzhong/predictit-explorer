@@ -1,4 +1,4 @@
-import { createSelector } from '../../utils';
+import { createSelector, parseSeriesResult } from '../../utils';
 import { State } from '../state';
 
 /**
@@ -10,6 +10,11 @@ const getMarkets = (state: State) => state.markets;
  * get the raw market data
  */
 const getData = createSelector(getMarkets, m => m.data);
+
+/**
+ * get array of all contracts
+ */
+const getContractList = createSelector(getMarkets, m => m.contracts || []);
 
 /**
  * get the list of all markets in the data
@@ -46,6 +51,14 @@ const getMarketsByNameFormatted = createSelector(
 );
 
 /**
+ * get hash of contract_id => contract
+ */
+const getContractsById = createSelector(
+  getLookup,
+  lookup => (lookup ? lookup.contractsById : {})
+);
+
+/**
  * create a market string lookup selector
  */
 const createMarketGetter = (
@@ -75,6 +88,18 @@ export const getMarketByTicker = createMarketGetter(getMarketsByTicker);
 export const getMarketByNameFormatted = createMarketGetter(
   getMarketsByNameFormatted
 );
+
+/**
+ *
+ * lookup a contract by id
+ *
+ */
+export const getContractById = (state: State, contractId: number) => {
+  const contract = getContractList(state)[getContractsById(state)[contractId]];
+  if (contract) {
+    return contract;
+  }
+};
 
 /**
  * get a market by several types of lookup
@@ -132,4 +157,30 @@ export const getFavoritesCount = createSelector(
 export const isFavorite = (state: State, id: number) => {
   const favorites = getFavorites(state);
   return favorites.indexOf(id) !== -1;
+};
+
+/**
+ * compute percent change for contract
+ */
+export const getContractDifference = (
+  state: State,
+  contractId: number,
+  days = 1
+) => {
+  const contract = getContractById(state, contractId);
+
+  if (!contract) {
+    return 0;
+  }
+
+  const series = contract.series.series;
+  const n = series.length;
+
+  if (n <= 1) {
+    return 0;
+  }
+
+  const a = parseFloat(series[n - 1][0]);
+  const b = parseFloat(series[n - days - 1][0]);
+  return a - b;
 };

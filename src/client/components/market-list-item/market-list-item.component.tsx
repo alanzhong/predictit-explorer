@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { classes } from 'typestyle';
 import { ContractWithSeries, MarketWithContracts } from '../../../types/client';
-import { last, memoize, stringToUrl } from '../../utils';
+import { kebab, last, memoize } from '../../utils';
 import { Chart } from '../chart';
 import { Colors } from '../colors';
+import { ContractChange } from '../contract-change';
 import { Favorite } from '../favorite';
 import { ActiveIcon, MultiContractIcon } from '../icon';
 import { Tooltip } from '../tooltip';
@@ -61,9 +62,10 @@ export class MarketListItem extends React.PureComponent<
         <div className={marketListItemHeaderClass}>
           <div className={marketNameClass}>{market.name}</div>
           <div className={indicatorContainerClass}>
-            {multipleContracts && (
-              <Tooltip text="Multi-contract market">
-                <MultiContractIcon
+            {is_open && <ContractChange contractId={sliced[0].contract_id} />}
+            {is_open && (
+              <Tooltip text="Market is active">
+                <ActiveIcon
                   className={indicatorClass}
                   style={{
                     fill: Colors.DARK_GRAY
@@ -71,9 +73,9 @@ export class MarketListItem extends React.PureComponent<
                 />
               </Tooltip>
             )}
-            {is_open && (
-              <Tooltip text="Market is active">
-                <ActiveIcon
+            {multipleContracts && (
+              <Tooltip text="Multi-contract market">
+                <MultiContractIcon
                   className={indicatorClass}
                   style={{
                     fill: Colors.DARK_GRAY

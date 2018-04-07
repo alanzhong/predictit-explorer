@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { classes, style } from 'typestyle';
-import { DailySeriesResult } from '../../../types/client';
-import { memoize, toUTC } from '../../utils';
+import { ChartObservation, DailySeriesResult } from '../../../types/client';
+import { memoize, parseSeriesResult, toUTC } from '../../utils';
 import { MOBILE_WIDTH } from '../constants';
 import { Dimensions, Responsive } from '../responsive';
 import { ChartSVG } from './chart-svg.component';
 import { chartClass } from './chart.styles';
-import { ChartObservation } from './types';
 
 interface ChartProps {
   series: DailySeriesResult;
@@ -30,7 +29,7 @@ export class Chart extends React.PureComponent<ChartProps, ChartState> {
     super(props);
 
     const { series, dateExtent } = this.props;
-    const data = prepData(series);
+    const data = parseSeriesResult(series);
     const extent = getDateExtent(data, dateExtent);
 
     this.state = { data, extent };
@@ -58,26 +57,6 @@ export class Chart extends React.PureComponent<ChartProps, ChartState> {
     );
   }
 }
-
-const prepData = memoize((data: DailySeriesResult) => {
-  const out: ChartObservation[] = [];
-  const { start, series } = data;
-
-  let lag = 0;
-
-  for (const observation of series) {
-    const [value, offset] = observation;
-
-    lag += offset;
-
-    out.push({
-      date: toUTC(start + lag),
-      value: parseFloat(value)
-    });
-  }
-
-  return out;
-});
 
 const getDateExtentForObservations = memoize((data: ChartObservation[]) => {
   let min = Infinity;

@@ -8,6 +8,8 @@ export const tooltipClass = style({
   display: 'block',
   left: -9999,
   position: 'fixed',
+  maxWidth: 120,
+  textAlign: 'center',
   color: 'white',
   backgroundColor: COLOR,
   padding: 5,

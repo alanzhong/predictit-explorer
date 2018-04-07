@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ContractWithSeries } from '../../../types/client';
-import { stringToUrl } from '../../utils';
+import { kebab } from '../../utils';
 import { Chart } from '../chart';
 import {
   marketDetailChartClass,
@@ -20,9 +20,7 @@ export class MarketDetailContract extends React.PureComponent<
 
     return (
       <div className={marketDetailContractClass}>
-        {multiContract && (
-          <h3 id={stringToUrl(contract.name)}>{contract.name}</h3>
-        )}
+        {multiContract && <h3 id={kebab(contract.name)}>{contract.name}</h3>}
         <Chart className={marketDetailChartClass} series={contract.series} />
       </div>
     );

@@ -1,3 +1,5 @@
+import { ChartObservation, DailySeriesResult } from '../types/client';
+
 const nonLetterRegex = /[^a-zA-Z0-9]+/g;
 const whitespaceRegex = /\s+/g;
 
@@ -83,20 +85,28 @@ export function shallowEqual<T extends {}>(a?: T, b?: T) {
   return true;
 }
 
-export function indexHash<T>(arr: T[], key: ((obj: T) => string)) {
+/**
+ *
+ * creates a mapping of key => index of item in arr
+ *
+ */
+export function indexHash<T, V extends { toString(): string }>(
+  arr: T[],
+  key: ((obj: T) => string | V)
+) {
   const hash: { [key: string]: number } = {};
   const n = arr.length;
 
   for (let i = 0; i < n; i++) {
     const value = arr[i];
     const hashKey = key(value);
-    hash[hashKey] = i;
+    hash[hashKey.toString()] = i;
   }
 
   return hash;
 }
 
-export function stringToUrl(str: string) {
+export function kebab(str: string) {
   return str
     .toLocaleLowerCase()
     .replace(nonLetterRegex, ' ')
@@ -112,3 +122,31 @@ export function utcFormat(d: Date | number) {
 export function toUTC(d: Date | number) {
   return new Date((typeof d === 'number' ? new Date(d) : d).toUTCString());
 }
+
+export function flatten<T>(arr: T[][]): T[] {
+  const out: T[] = [];
+  for (const val of arr) {
+    out.push(...val);
+  }
+  return out;
+}
+
+export const parseSeriesResult = memoize((data: DailySeriesResult) => {
+  const out: ChartObservation[] = [];
+  const { start, series } = data;
+
+  let lag = 0;
+
+  for (const observation of series) {
+    const [value, offset] = observation;
+
+    lag += offset;
+
+    out.push({
+      date: toUTC(start + lag),
+      value: parseFloat(value)
+    });
+  }
+
+  return out;
+});

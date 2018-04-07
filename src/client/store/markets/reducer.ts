@@ -1,4 +1,4 @@
-import { indexHash, stringToUrl } from '../../utils';
+import { flatten, indexHash, kebab } from '../../utils';
 import { ActionType } from '../action-types';
 import { Action } from '../actions';
 import { MarketsState } from './state';
@@ -17,16 +17,18 @@ export function markets(
 
     case ActionType.UPDATE_MARKET_DATA_SUCCESS: {
       const data = action.payload.data;
+      const contracts = flatten(data.markets.map(m => m.contracts));
+
       return {
         ...state,
         data,
+        contracts,
         requesting: false,
         lookup: {
-          byMarketId: indexHash(data.markets, m => m.market_id.toString()),
+          byMarketId: indexHash(data.markets, m => m.market_id),
           byMarketTicker: indexHash(data.markets, m => m.ticker_symbol),
-          byMarketNameFormatted: indexHash(data.markets, market =>
-            stringToUrl(market.name)
-          )
+          byMarketNameFormatted: indexHash(data.markets, m => kebab(m.name)),
+          contractsById: indexHash(contracts, c => c.contract_id)
         }
       };
     }

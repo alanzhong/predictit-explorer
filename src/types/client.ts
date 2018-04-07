@@ -35,3 +35,8 @@ export interface DailySeriesResult {
 export interface ProjectedDailyResult {
   [contractId: string]: DailySeriesResult;
 }
+
+export interface ChartObservation {
+  date: Date;
+  value: number;
+}

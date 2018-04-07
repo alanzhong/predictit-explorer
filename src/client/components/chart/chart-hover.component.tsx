@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { ChartObservation } from '../../../types/client';
 import { last, shallowEqual, uid } from '../../utils';
 import { MOBILE_WIDTH } from '../constants';
 import { Axis } from './axis.component';
@@ -8,7 +9,6 @@ import {
   mouseoverTextClass,
   mouseRectClass
 } from './chart-svg.styles';
-import { ChartObservation } from './types';
 
 export interface ChartHoverProps {
   height: number;

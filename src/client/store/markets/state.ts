@@ -1,4 +1,8 @@
-import { ClientData, MarketWithContracts } from '../../../types/client';
+import {
+  ClientData,
+  ContractWithSeries,
+  MarketWithContracts
+} from '../../../types/client';
 
 export interface MarketsState {
   data?: ClientData;
@@ -6,7 +10,9 @@ export interface MarketsState {
     byMarketId: { [key: string]: number };
     byMarketTicker: { [key: string]: number };
     byMarketNameFormatted: { [key: string]: number };
+    contractsById: { [key: number]: number };
   };
+  contracts?: ContractWithSeries[];
   requesting?: boolean;
   favorites?: number[];
 }

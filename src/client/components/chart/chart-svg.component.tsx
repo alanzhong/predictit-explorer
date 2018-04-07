@@ -1,6 +1,7 @@
 import * as d3 from 'd3-virtual';
 import * as React from 'react';
 import { classes } from 'typestyle';
+import { ChartObservation } from '../../../types/client';
 import { last, shallowEqual, uid, utcFormat } from '../../utils';
 import { MOBILE_WIDTH } from '../constants';
 import { Axis } from './axis.component';
@@ -16,7 +17,6 @@ import {
   textAnnotationClass,
   yAxisTextClass
 } from './chart-svg.styles';
-import { ChartObservation } from './types';
 
 interface ChartSVGProps {
   data: ChartObservation[];
