@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { MarketWithContracts } from '../../../types/client';
+import { ContractChange } from '../contract-change';
 import { MarketDetailContract } from '../market-detail-contract';
 import {
   marketDetailClass,
-  marketDetailHeaderClass
+  marketDetailHeaderClass,
+  marketDetailInfoClass
 } from './market-detail.styles';
 
 export interface MarketDetailProps {
@@ -16,13 +18,18 @@ export class MarketDetail extends React.PureComponent<MarketDetailProps> {
     if (!market) {
       return <div>No market found...</div>;
     }
-
-    const multiContract = market.contracts.length > 1;
+    const { contracts } = market;
+    const multiContract = contracts.length > 1;
+    const first = contracts[0];
 
     return (
       <div className={marketDetailClass}>
-        <h2 className={marketDetailHeaderClass}>{market.name}</h2>
-        {market.contracts.map(contract => (
+        <div className={marketDetailInfoClass}>
+          <h2 className={marketDetailHeaderClass}>{market.name}</h2>
+          {!multiContract && <ContractChange contractId={first.contract_id} />}
+        </div>
+
+        {contracts.map(contract => (
           <MarketDetailContract
             contract={contract}
             multiContract={multiContract}

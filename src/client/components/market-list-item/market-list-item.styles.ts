@@ -50,13 +50,23 @@ export const indicatorClass = style({
 });
 
 export const marketNameClass = style({
-  paddingRight: 10
+  paddingRight: 10,
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center'
 });
 
 export const contractNameClass = style({
   marginTop: 5,
-  fontSize: '0.8em',
   fontWeight: 'bold'
+});
+
+export const contractInfoClass = style({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  fontSize: '0.8em',
+  padding: '5px 0px'
 });
 
 export const showAllContractsButtonClass = style({

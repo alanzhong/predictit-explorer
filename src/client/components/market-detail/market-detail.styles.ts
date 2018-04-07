@@ -9,3 +9,9 @@ export const marketDetailClass = style({
 });
 
 export const marketDetailHeaderClass = style({});
+
+export const marketDetailInfoClass = style({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center'
+});

@@ -12,3 +12,11 @@ export const marketDetailContractClass = style({
     }
   }
 });
+
+export const marketDetailContractInfo = style({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center'
+});
+
+export const marketDetailContractHeaderClass = style({});

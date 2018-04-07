@@ -34,3 +34,12 @@ cssRule('html, body', {
 cssRule('h1, h2, h3, h4', {
   fontWeight: 300
 });
+
+cssRule('a', {
+  color: 'black',
+  $nest: {
+    '&:visited': {
+      color: 'black'
+    }
+  }
+});

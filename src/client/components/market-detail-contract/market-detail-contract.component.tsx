@@ -2,9 +2,12 @@ import * as React from 'react';
 import { ContractWithSeries } from '../../../types/client';
 import { kebab } from '../../utils';
 import { Chart } from '../chart';
+import { ContractChange } from '../contract-change';
 import {
   marketDetailChartClass,
-  marketDetailContractClass
+  marketDetailContractClass,
+  marketDetailContractHeaderClass,
+  marketDetailContractInfo
 } from './market-detail-contract.styles';
 
 export interface MarketDetailContractProps {
@@ -20,7 +23,17 @@ export class MarketDetailContract extends React.PureComponent<
 
     return (
       <div className={marketDetailContractClass}>
-        {multiContract && <h3 id={kebab(contract.name)}>{contract.name}</h3>}
+        {multiContract && (
+          <div className={marketDetailContractInfo}>
+            <h3
+              id={kebab(contract.name)}
+              className={marketDetailContractHeaderClass}
+            >
+              {contract.name}
+            </h3>
+            <ContractChange contractId={contract.contract_id} />
+          </div>
+        )}
         <Chart className={marketDetailChartClass} series={contract.series} />
       </div>
     );

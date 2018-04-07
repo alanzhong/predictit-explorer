@@ -9,6 +9,7 @@ import { Favorite } from '../favorite';
 import { ActiveIcon, MultiContractIcon } from '../icon';
 import { Tooltip } from '../tooltip';
 import {
+  contractInfoClass,
   contractNameClass,
   indicatorClass,
   indicatorContainerClass,
@@ -60,9 +61,14 @@ export class MarketListItem extends React.PureComponent<
     return (
       <div className={marketListItemClass} onClick={this.onClick}>
         <div className={marketListItemHeaderClass}>
-          <div className={marketNameClass}>{market.name}</div>
+          <div className={marketNameClass}>
+            {market.name}
+            {is_open &&
+              !multipleContracts && (
+                <ContractChange contractId={sliced[0].contract_id} />
+              )}
+          </div>
           <div className={indicatorContainerClass}>
-            {is_open && <ContractChange contractId={sliced[0].contract_id} />}
             {is_open && (
               <Tooltip text="Market is active">
                 <ActiveIcon
@@ -89,7 +95,10 @@ export class MarketListItem extends React.PureComponent<
         {sliced.map(contract => (
           <div className={sparkLineContainer} key={contract.contract_id}>
             {multipleContracts && (
-              <div className={contractNameClass}>{contract.name}</div>
+              <div className={contractInfoClass}>
+                <div className={contractNameClass}>{contract.name}</div>
+                <ContractChange contractId={contract.contract_id} />
+              </div>
             )}
             <Chart
               className={sparkLineClass}
