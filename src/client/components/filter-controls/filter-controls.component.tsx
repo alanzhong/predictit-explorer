@@ -38,20 +38,22 @@ export class FilterControls extends React.PureComponent<FilterControlsProps> {
     query: this.props.query
   };
 
-  updateSearch = debounce(() => {
+  updateSearch = () => {
     const { query } = this.state;
     const { onSearch = noop } = this.props;
     onSearch(query);
-  }, 200);
+  };
+
+  updateSearchDebounced = debounce(this.updateSearch, 200);
 
   onInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const query = event.currentTarget.value;
-    this.setState({ query }, this.updateSearch);
+    this.setState({ query }, this.updateSearchDebounced);
   };
 
   clearSearch = () => {
     const { onSearch = noop } = this.props;
-    onSearch('');
+    this.setState({ query: '' }, this.updateSearch);
   };
 
   onToggleFilters = () => {
