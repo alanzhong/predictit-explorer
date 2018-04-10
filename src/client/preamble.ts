@@ -37,9 +37,13 @@ cssRule('h1, h2, h3, h4', {
 
 cssRule('a', {
   color: 'black',
+  textDecoration: 'none',
   $nest: {
     '&:visited': {
       color: 'black'
+    },
+    '&:hover': {
+      textDecoration: 'underline'
     }
   }
 });

@@ -25,7 +25,11 @@ export class MarketDetail extends React.PureComponent<MarketDetailProps> {
     return (
       <div className={marketDetailClass}>
         <div className={marketDetailInfoClass}>
-          <h2 className={marketDetailHeaderClass}>{market.name}</h2>
+          <h2 className={marketDetailHeaderClass}>
+            <a href={market.url} target="_blank">
+              {market.name}
+            </a>
+          </h2>
           {!multiContract && <ContractChange contractId={first.contract_id} />}
         </div>
 
