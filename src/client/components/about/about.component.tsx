@@ -38,8 +38,10 @@ export class About extends React.PureComponent<AboutProps> {
         </p>
         <h2>How do the charts in this tool work?</h2>
         <p>
-          Below, a Predictit prediction market is plotted, representing Paul
-          Ryan's chances of being re-elected in 2018:
+          Below, a prediction market is plotted; showing daily average
+          probability that Paul Ryan will be re-elected in 2018. Probabilities
+          are based on the last traded price for "Yes" shares in the given
+          market.
         </p>
         {exampleMarket ? (
           <MarketListItem market={exampleMarket} />
