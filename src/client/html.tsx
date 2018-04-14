@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { renderToString } from 'react-dom/server'; // tslint:disable-line
+import { renderToStaticMarkup } from 'react-dom/server'; // tslint:disable-line
 
 const prod = process.env.NODE_ENV === 'production';
 
@@ -7,8 +7,8 @@ const prod = process.env.NODE_ENV === 'production';
  * template for the index.html file.
  * Might as well get the types + static analysis of Typescript + React!
  */
-export const getHtmlString = () =>
-  renderToString(
+export const getHtmlString = (js?: string) =>
+  renderToStaticMarkup(
     <html lang="en">
       <head>
         <meta charSet="UTF-8" />
@@ -19,7 +19,14 @@ export const getHtmlString = () =>
       </head>
       <body>
         <div id="root" />
-        <script src="/bundle.js" />
+        {prod ? (
+          <script
+            type="application/javascript"
+            dangerouslySetInnerHTML={{ __html: js || '' }}
+          />
+        ) : (
+          <script src="bundle.js" />
+        )}
       </body>
     </html>
   );
