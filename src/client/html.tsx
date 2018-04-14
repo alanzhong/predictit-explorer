@@ -16,6 +16,7 @@ export const getHtmlString = (js?: string) =>
         <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
         {!prod && <base href="http://localhost:10001/" />}
         <link rel="icon" href="/favicon.ico?v=1" />
+        <title>PredictIt Explorer</title>
       </head>
       <body>
         <div id="root" />
