@@ -27,10 +27,10 @@ export class About extends React.PureComponent<AboutProps> {
         </p>
         <h2>What is this?</h2>
         <p>
-          This tool, <b>which is not associated in any way with PredictIt</b>,
-          intends to visualize historical PredictIt data an easily searchable
-          interface. Data is taken in 5 minute snapshots via the provided public
-          API, going back to{' '}
+          This tool, which is not associated in any way with PredictIt, intends
+          to visualize historical PredictIt data an easily searchable interface.
+          Data is taken in 5 minute snapshots via the provided public API, going
+          back to{' '}
           {minDate === Infinity
             ? '(loading...)'
             : new Date(minDate).toLocaleDateString()}{' '}
