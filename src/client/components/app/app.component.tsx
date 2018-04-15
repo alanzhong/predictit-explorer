@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Location } from 'redux-little-router';
-import { appClass } from './app.styles';
+import { appClass, appFooterClass } from './app.styles';
 
 import { RouterPaths } from '../../store';
 import { About } from '../about';
@@ -57,6 +57,10 @@ export class App extends React.PureComponent<AppProps> {
       <div className={appClass}>
         <NavBar updatedAt={updatedAt} favoritesCount={favoritesCount} />
         {this.renderContent()}
+        <div className={appFooterClass}>
+          <a href="https://bsou.io">Ben Southgate</a> | 2018 |{' '}
+          <a href="https://github.com/bsouthga/predictit-explorer">github</a>
+        </div>
       </div>
     );
   }

@@ -4,7 +4,7 @@ import { MarketWithContracts } from '../../../types/client';
 import { RouterPaths } from '../../store';
 import { ActiveIcon, FavoriteIcon } from '../icon';
 import { MarketListItem } from '../market-list-item';
-import { aboutClass, appFooterClass, iconClass } from './about.styles';
+import { aboutClass, iconClass } from './about.styles';
 
 export interface AboutProps {
   minDate: number;
@@ -66,10 +66,6 @@ export class About extends React.PureComponent<AboutProps> {
           public API. Try hovering over the chart to see market-based
           probabilities at specific points in time.
         </p>
-        <div className={appFooterClass}>
-          <a href="https://bsou.io">Ben Southgate</a> | 2018 |{' '}
-          <a href="https://github.com/bsouthga/predictit-explorer">github</a>
-        </div>
       </div>
     );
   }

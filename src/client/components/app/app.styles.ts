@@ -20,3 +20,10 @@ export const appClass = style(
     }
   )
 );
+
+export const appFooterClass = style({
+  width: '100%',
+  textAlign: 'center',
+  fontSize: '0.8em',
+  marginTop: 40
+});
